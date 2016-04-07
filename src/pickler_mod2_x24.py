@@ -109,9 +109,9 @@ for one in txtList:
 	    except:
 		print word
 	oneQ.append(np.divide(temp_vector,count))
-    permutation = [ p for p in permutations( zip(oneQ[11:],ans[idxCounter].tolist()) ) ]
+    permutation = [ p for p in permutations( zip(oneQ[12:],ans[idxCounter].tolist()) ) ]
     for pair in permutation:
-	data.append( [ np.hstack(tuple(oneQ[:11]+[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]])), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
+	data.append( [ np.hstack(tuple(oneQ[:12]+[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]])), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
     idxCounter += 1
 pdb.set_trace()
 print "Pickling..."

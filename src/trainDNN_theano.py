@@ -10,8 +10,8 @@ from parse import mk_batch
 import csv
 
 LEARNING_RATE = 0.001
-HIDDEN_LAYER=3
-HIDDEN_LAYER_DIM=4096
+HIDDEN_LAYER=5
+HIDDEN_LAYER_DIM=2048
 
 def my_print(epoch, ith_batch, n_batch, cost):
 	sys.stdout.write("\repoch %i, batch: %i/%i, cost: %f" % \
@@ -40,6 +40,10 @@ def train():
 		input_dim=4500
 		training_data = cPickle.load(open("Pickle/mc500.train.mod2.x24.pickle"))
 		valid_data = cPickle.load(open("Pickle/mc500.dev.mod2.pickle"))
+	elif(args.dataset=="mod1.x24"):
+		input_dim=1800
+		training_data = cPickle.load(open("Pickle/mc500.train.mod1.x24.pickle"))
+		valid_data = cPickle.load(open("Pickle/mc500.dev.mod1.pickle"))
 
 	batch_training_data, batch_train_label = mk_batch(training_data,
 										batch_size=args.batch_size,
