@@ -46,27 +46,27 @@ for one in txtList:
 		if '\'s' in word:
 		    word = word.split('\'')[0]
 		elif 'n\'t' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('n')[0]]))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('n')[0]],dtype='float32'))
 		    count += 1.
 		    word = 'not'
 		elif '\'d' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]]))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]],dtype='float32'))
 		    count += 1.
 		    word = 'would'
 		elif 'i\'m' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec['i']))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec['i'],dtype='float32'))
 		    count += 1.
 		    word = 'am'
 		elif '\'ll' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]]))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]],dtype='float32'))
 		    count += 1.
 		    word = 'will'
 		elif '\'ve' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]]))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]],dtype='float32'))
 		    count += 1.
 		    word = 'have'
 		elif '\'re' in word:
-		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]]))
+		    temp_vector = np.add(temp_vector,np.asarray(word_vec[word.split('\'')[0]],dtype='float32'))
 		    count += 1.
 		    word = 'are'
 		elif '(' in word:
@@ -76,45 +76,45 @@ for one in txtList:
 		elif '.'  in word:
 		    for oneword in word.split('.'):
 			if oneword and oneword in word_vec:
-			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword]))
+			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword],dtype='float32'))
 			    count+=1.
 		    continue
 		elif ';' in word:
 		    for oneword in word.split(';'):
 			if oneword and oneword in word_vec:
-			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword]))
+			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword],dtype='float32'))
 			    count+=1.
 		    continue
 		elif ':' in word:
 		    for oneword in word.split(':'):
 			if oneword and oneword in word_vec:
-			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword]))
+			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword],dtype='float32'))
 			    count+=1.
 		    continue
 		elif '\'' in word:
 		    for oneword in word.split('\''):
 			if oneword and oneword in word_vec:
-			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword]))
+			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword],dtype='float32'))
 			    count+=1.
 		    continue
 		elif '-'  in word:
 		    for oneword in word.split('-'):
 			if oneword and oneword in word_vec:
-			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword]))
+			    temp_vector = np.add(temp_vector,np.asarray(word_vec[oneword],dtype='float32'))
 			    count+=1.
 		    continue
 	    try:
-		temp_vector = np.add(temp_vector,np.asarray(word_vec[word]))
+		temp_vector = np.add(temp_vector,np.asarray(word_vec[word],dtype='float32'))
 	        count += 1.
 	    except:
 		print word
         if count == 0:
-	    oneQ.append(np.zeros(300,dtype='float32'))
+	    oneQ.append(temp_vector)
 	else:
 	    oneQ.append(np.divide(temp_vector,count))
     permutation = [ p for p in permutations( zip(oneQ[2:],ans[idxCounter].tolist()) ) ]
     for pair in permutation:
-	data.append( [ np.hstack(tuple(oneQ[:2]++[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]])), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
+	data.append( [ np.hstack(tuple(oneQ[:2]+[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]])), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
     idxCounter +=1
 
 pdb.set_trace()

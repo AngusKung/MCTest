@@ -108,7 +108,10 @@ for one in txtList:
 	        count += 1.
 	    except:
 		print word
-        oneQ.append(np.divide(temp_vector,count))
+	if count == 0:
+	    oneQ.append(temp_vector)
+	else:
+	    oneQ.append(np.divide(temp_vector,count))
     #print 'The shape of Q is '+str(np.shape(oneQ))
     #print 'The shape of one after is '+str(np.shape(one))
     # === TODO:  Insert each LABLE here to retain the order ===
