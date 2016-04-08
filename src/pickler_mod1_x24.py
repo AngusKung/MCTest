@@ -17,7 +17,7 @@ stopWordFile = '../Data/stopwords.txt'
 #"../Data/mc160.test.txt"
 #"../Data/mc500.val.txt"
 #"../Data/mc160.val.txt"
-dataPickle_name = "../Pickle/"+txtFilename.split('/')[-1].split('.')[0]+"."+txtFilename.split('/')[-1].split('.')[1]+".mod1.x24.pickle"
+dataPickle_name = "../Pickle/"+txtFilename.split('/')[-1].split('.')[0]+"."+txtFilename.split('/')[-1].split('.')[1]+".mod1.x24.noStopWord.pickle"
 print dataPickle_name
 print "Loading word2vec..."
 word_vec = Word2Vec.load_word2vec_format(wordvec_file, binary=False)
@@ -40,8 +40,8 @@ for one in txtList:
 	temp_vector = np.zeros(300,dtype='float32')
 	for word in entry:
 	    word = word.lower()
-	    if word in stopWord:
-		continue
+	    #if word in stopWord:
+	    #continue
 	    if word not in word_vec:
 		if '\'s' in word:
 		    word = word.split('\'')[0]
@@ -114,7 +114,7 @@ for one in txtList:
 	    oneQ.append(np.divide(temp_vector,count))
     permutation = [ p for p in permutations( zip(oneQ[2:],ans[idxCounter].tolist()) ) ]
     for pair in permutation:
-	data.append( [ np.hstack(tuple(oneQ[:2]+[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]])), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
+	data.append( [ np.hstack(oneQ[:2]+[pair[0][0]]+[pair[1][0]]+[pair[2][0]]+[pair[3][0]]), np.asarray( [pair[0][1],pair[1][1],pair[2][1],pair[3][1]]) ] )
     idxCounter +=1
 
 pdb.set_trace()

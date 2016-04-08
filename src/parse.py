@@ -1,5 +1,26 @@
 import numpy as np
 
+def mk_all(data):
+	data_num = len(data)
+	word_dim = len(data[0][0][0][0])
+	print "Total data: %d\nWord dim:  %d\n" % (data_num, word_dim)
+
+	label_size = len(data[0][1])
+	#data[0][0] contains P,Q,A1,A2,A3,A4
+	#data[0][1] contains label
+	#data[0][0][0] contains P is a list of words
+	#data[0][0][0][0] is word's np vector dim=300
+
+	data_shuf = []
+	label_shuf = np.zeros((data_num, label_size))
+	for i in range(data_num):
+		fuck=[]
+		for j in range(len(data[i][0])):
+			fuck=fuck+data[i][0][j]
+		data_shuf.append(fuck)
+		label_shuf[i, ] = data[i][1]
+	return data_shuf, label_shuf
+
 def mk_batch(data, batch_size, shuffle=True):
 	data_num = len(data)
 	data_size = len(data[0][0])

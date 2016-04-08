@@ -44,6 +44,10 @@ def train():
 		input_dim=1800
 		training_data = cPickle.load(open("Pickle/mc500.train.mod1.x24.pickle"))
 		valid_data = cPickle.load(open("Pickle/mc500.dev.mod1.pickle"))
+	elif(args.dataset=="mod1.x24.noStopWord"):
+		input_dim=1800
+		training_data = cPickle.load(open("Pickle/mc500.train.mod1.x24.noStopWord.pickle"))
+		valid_data = cPickle.load(open("Pickle/mc500.dev.mod1.pickle"))
 
 	batch_training_data, batch_train_label = mk_batch(training_data,
 										batch_size=args.batch_size,
