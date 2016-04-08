@@ -19,7 +19,7 @@ iii=1
 jjj=0
 while jjj<iii:
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-n_hid_units", type=int, default=1024)
+	parser.add_argument("-n_hid_units", type=int, default=64)
 	parser.add_argument("-n_hid_layers", type=int, default=2)
 	parser.add_argument("-dropout", type=float, default=0.2)
 	parser.add_argument("-activation", type=str, default="relu")
@@ -49,10 +49,14 @@ while jjj<iii:
 			maxlen = len(ff)
 	for opp,gg in enumerate(batch_training_data):
 		for i in range(maxlen-len(gg)):
-			batch_training_data[opp].append(np.zeros(300))
+			#batch_training_data[opp] = list(np.zeros(300)).append(batch_training_data[opp])
+			batch_training_data[opp].insert(0,np.zeros(300))
 	for opp,gg in enumerate(batch_valid_data):
 		for i in range(maxlen-len(gg)):
-			batch_valid_data[opp].append(np.zeros(300))
+			#batch_valid_data[opp] = list(np.zeros(300)).append(batch_valid_data[opp])
+			batch_valid_data[opp].insert(0,np.zeros(300))
+	batch_training_data = np.array(batch_training_data)
+	batch_valid_data = np.array(batch_valid_data)
 
 	#batch_valid_data, batch_valid_label = mk_batch(valid_data,
 	#									batch_size=len(valid_data),
@@ -63,8 +67,6 @@ while jjj<iii:
 #		fuck = each[0]
 	#sys.exit(1)
 	n_classes=4 # number of classes to be classified == 4 choices
-	batch_training_data = np.array(batch_training_data)
-	batch_valid_data = np.array(batch_valid_data)
 	model = Sequential()
 	model.add(LSTM(output_dim = 128, return_sequences = False, input_shape = (662,300), init = 'glorot_uniform', inner_init = 'orthogonal', inner_activation = 'hard_sigmoid'))
 	model.add(Dense(args.n_hid_units,
