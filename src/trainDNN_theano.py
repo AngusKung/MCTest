@@ -5,13 +5,12 @@ import cPickle
 import argparse
 import random
 import pdb
-from DeepNNet import DNN
+from DeepNNet_YCK import DNN
 from parse import mk_batch
 import csv
 
 LEARNING_RATE = 0.001
-HIDDEN_LAYER=5
-HIDDEN_LAYER_DIM=2048
+HIDDEN_LAYER=[512,128,32]
 
 def my_print(epoch, ith_batch, n_batch, cost):
 	sys.stdout.write("\repoch %i, batch: %i/%i, cost: %f" % \
@@ -57,17 +56,18 @@ def train():
 										batch_size=args.batch_size,
 										shuffle=True
 										)
-	statistical_result_name = 'result_record/theano_batch='+str(args.batch_size)+'_'+str(args.dataset)+'_'+str(HIDDEN_LAYER)+'_'+str(HIDDEN_LAYER_DIM)+'_'+str(LEARNING_RATE)+'_4.6.csv'
+	statistical_result_name = 'result_record/theano_batch='+str(args.batch_size)+'_'+str(args.dataset)+'_'+str(i for i in HIDDEN_LAYER)+'_'+str(LEARNING_RATE)+'_4.6.csv'
 	print "saving result to:", statistical_result_name
 	print "data & label shape:", batch_training_data.shape, batch_train_label.shape
-	
+	print "HIDDEN_LAYER:",HIDDEN_LAYER
 	print "training started..."
 	start_time = timeit.default_timer()
 	
 	dnn = DNN(
 		input_dim=input_dim,
-		n_hid_layer=HIDDEN_LAYER,
-		hid_layer_dim=HIDDEN_LAYER_DIM,
+		#n_hid_layer=HIDDEN_LAYER,
+		#hid_layer_dim=HIDDEN_LAYER_DIM,
+		hid_layer = HIDDEN_LAYER,
 		output_dim=4,
 		batch_size=args.batch_size,
 	)
