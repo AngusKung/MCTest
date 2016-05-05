@@ -87,7 +87,7 @@ if __name__ == '__main__' :
 	#		model.add_node(Dropout(args.dropout), name='para_drop_'+str(i+1),input='para_'+str(i+1))
 	# ----------- para ready -----------
 	model.add_node( Activation('linear'),name='para_seen_act', inputs=['para_1','para_2','para_3','para_4','para_5','para_6','para_7','para_8','para_9','para_10'], merge_mode='concat' )
-	model.add_node( Dense(512,input_dim=2560,activation='relu'i,init='glorot_uniform'),name='para_seen', input='para_seen_act')
+	model.add_node( Dense(512,input_dim=2560,activation='relu',init='glorot_uniform'),name='para_seen', input='para_seen_act')
 	#if args.dropout > 0:
 	#	model.add_node(Dropout(args.dropout),name='para_seen_drop',input='para_seen')
 	# ----------- para+que ready ------------
