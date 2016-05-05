@@ -165,40 +165,42 @@ if __name__ == '__main__' :
 				'input_opt_3':training_data[i][0][13].reshape(1,300),
 				'input_opt_4':training_data[i][0][14].reshape(1,300)
 				})
-			pdb.set_trace()
-			if np.argmax(ans) == np.argmax(training_data[i][0]):
+			if np.argmax(ans) == np.argmax(training_data[i][1]):
 				train_acc += 1
+			print "Now on",i+1
+			sys.stdout.write("\033[F")
 		print "train_acc = ",train_acc/len(training_data)*100,"%"
 		val_acc = 0
-		for i in range(len(validation_data)):
+		for i in range(len(valid_data)):
 			ans = model.predict_on_batch(
-			       {'input_para_1':validation_data[i][0][0].reshape(1,300),
-				'input_para_2':validation_data[i][0][1].reshape(1,300),
-				'input_para_3':validation_data[i][0][2].reshape(1,300),
-				'input_para_4':validation_data[i][0][3].reshape(1,300),
-				'input_para_5':validation_data[i][0][4].reshape(1,300),
-				'input_para_6':validation_data[i][0][5].reshape(1,300),
-				'input_para_7':validation_data[i][0][6].reshape(1,300),
-				'input_para_8':validation_data[i][0][7].reshape(1,300),
-				'input_para_9':validation_data[i][0][8].reshape(1,300),
-				'input_para_10':validation_data[i][0][9].reshape(1,300),
-				'input_que':validation_data[i][0][10].reshape(1,300),
-				'input_opt_1':validation_data[i][0][11].reshape(1,300),
-				'input_opt_2':validation_data[i][0][12].reshape(1,300),
-				'input_opt_3':validation_data[i][0][13].reshape(1,300),
-				'input_opt_4':validation_data[i][0][14].reshape(1,300)
+			       {'input_para_1':valid_data[i][0][0].reshape(1,300),
+				'input_para_2':valid_data[i][0][1].reshape(1,300),
+				'input_para_3':valid_data[i][0][2].reshape(1,300),
+				'input_para_4':valid_data[i][0][3].reshape(1,300),
+				'input_para_5':valid_data[i][0][4].reshape(1,300),
+				'input_para_6':valid_data[i][0][5].reshape(1,300),
+				'input_para_7':valid_data[i][0][6].reshape(1,300),
+				'input_para_8':valid_data[i][0][7].reshape(1,300),
+				'input_para_9':valid_data[i][0][8].reshape(1,300),
+				'input_para_10':valid_data[i][0][9].reshape(1,300),
+				'input_que':valid_data[i][0][10].reshape(1,300),
+				'input_opt_1':valid_data[i][0][11].reshape(1,300),
+				'input_opt_2':valid_data[i][0][12].reshape(1,300),
+				'input_opt_3':valid_data[i][0][13].reshape(1,300),
+				'input_opt_4':valid_data[i][0][14].reshape(1,300)
 				})
-			pdb.set_trace()
-			if np.argmax(ans) == np.argmax(validation_data[i][0]):
+			if np.argmax(ans) == np.argmax(valid_data[i][1]):
 				val_acc += 1
-		print "val_acc = ",val_acc/len(validation_data)*100,"%"
+			print "Now on",i+1
+			sys.stdout.write("\033[F")
+		print "val_acc = ",val_acc/len(valid_data)*100,"%"
 	'''model.fit(
 		X=batch_training_data,
 		y=batch_label,
 		batch_size=args.batch_size,
 		nb_epoch=args.epochs,
 		#validation_split=0.2,
-		validation_data=(batch_valid_data, batch_valid_label),
+		valid_data=(batch_valid_data, batch_valid_label),
 		#shuffle=True,
 		show_accuracy=True
 	)'''
