@@ -82,26 +82,26 @@ if __name__ == '__main__' :
 	for i in range(10):
 		model.add_input(name='input_para_'+str(i+1), input_shape=(dim_glove,),dtype='float32')
 		model.add_node(Activation('linear'), name='para_'+str(i+1)+'_act', inputs=['input_que','input_para_'+str(i+1)], merge_mode='sum')
-		model.add_node(Dense(256,input_dim=600,activation='relu'), name='para_'+str(i+1), input='para_'+str(i+1)+'_act')
+		model.add_node(Dense(256,input_dim=600,activation='relu',init='glorot_uniform'), name='para_'+str(i+1), input='para_'+str(i+1)+'_act')
 	#	if args.dropout > 0:
 	#		model.add_node(Dropout(args.dropout), name='para_drop_'+str(i+1),input='para_'+str(i+1))
 	# ----------- para ready -----------
 	model.add_node( Activation('linear'),name='para_seen_act', inputs=['para_1','para_2','para_3','para_4','para_5','para_6','para_7','para_8','para_9','para_10'], merge_mode='concat' )
-	model.add_node( Dense(512,input_dim=2560,activation='relu'),name='para_seen', input='para_seen_act')
+	model.add_node( Dense(512,input_dim=2560,activation='relu'i,init='glorot_uniform'),name='para_seen', input='para_seen_act')
 	#if args.dropout > 0:
 	#	model.add_node(Dropout(args.dropout),name='para_seen_drop',input='para_seen')
 	# ----------- para+que ready ------------
 	for i in range(4):	
 		model.add_input(name='input_opt_'+str(i+1), input_shape=(dim_glove,),dtype='float32')
 	model.add_node(Activation('linear'), name='opt_seen_act', inputs=['para_seen','input_opt_1','input_opt_2','input_opt_3','input_opt_4'],merge_mode='concat')
-	model.add_node(Dense(512,input_dim=512+300*4,activation='relu'), name='opt_seen', input='opt_seen_act')
+	model.add_node(Dense(512,input_dim=512+300*4,activation='relu',init='glorot_uniform'), name='opt_seen', input='opt_seen_act')
 	# ----------- option seen and merge with para+que ------------
 	#if args.dropout > 0:
 	#	model.add_node(Dropout(args.dropout),name='opt_seen_drop',input='opt_seen')
-	model.add_node(Dense(64,input_dim=512,activation='relu'),name = 'all_seen',input='opt_seen')
+	model.add_node(Dense(64,input_dim=512,activation='relu',init='glorot_uniform'),name = 'all_seen',input='opt_seen')
 	#if args.dropout > 0:
 	#	model.add_node(Dropout(args.dropout),name='all_seen_drop',input='all_seen')
-	model.add_node(Dense(4,input_dim=64,activation='softmax'),name='final',input='all_seen')
+	model.add_node(Dense(4,input_dim=64,activation='softmax',init='glorot_uniform'),name='final',input='all_seen')
 	model.add_output(name='output',input='final')
 
 	json_string = model.to_json()
