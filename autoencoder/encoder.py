@@ -4,7 +4,7 @@ from sys import argv
 
 
 if len(argv) != 4:
-    print "Usage: python encoder.py <input(../Data/mc500.train.txt)> <outputdir(mc500.train)> <dict>"
+    print "Usage: python encoder.py <input(../Data/mc500.train.txt)> <outputdir(mc500.train.full/)> <dict>"
     exit(1)
 
 input_ = argv[1]
@@ -24,6 +24,26 @@ txt = readTXT(input_)
 #with open(output, 'w') as fout:
 for q_id in range(len(txt)):
     print q_id
+    '''
+    for oneQ in txt:
+	fout = open(output+str(q_id),"w")
+        for word in oneQ[0]:
+            word = word.lower()
+            if word in d_arr:
+                token = d_arr[word]
+	    elif word.split(".")[0] in d_arr:
+		token = d_arr[word.split(".")[0]]
+	    elif word.split("'s")[0] in d_arr:
+		token = d_arr[word.split("'s")[0]]
+	    elif word.split(":")[0] in d_arr:
+		token = d_arr[word.split(":")[0]]
+            else:
+                token = OOV
+
+            fout.write(str(token))
+            fout.write(' ')
+	fout.close()
+    '''
     for oneQ in txt:
 	fout = open(output+str(q_id)+"_txt","w")
         for word in oneQ[0]:
@@ -42,8 +62,8 @@ for q_id in range(len(txt)):
             fout.write(str(token))
             fout.write(' ')
 
-        fout.write('\n')
 	fout.close()
+	'''
 	fout = open(output+str(q_id)+"_q","w")
         for word in oneQ[1]:
             word = word.lower()
@@ -62,4 +82,74 @@ for q_id in range(len(txt)):
             fout.write(' ')
 
         fout.write('\n')
-	fout.close()
+
+        for word in oneQ[2]:
+            word = word.lower()
+            if word in d_arr:
+                token = d_arr[word]
+	    elif word.split(".")[0] in d_arr:
+		token = d_arr[word.split(".")[0]]
+	    elif word.split("'s")[0] in d_arr:
+		token = d_arr[word.split("'s")[0]]
+	    elif word.split(":")[0] in d_arr:
+		token = d_arr[word.split(":")[0]]
+            else:
+                token = OOV
+
+            fout.write(str(token))
+            fout.write(' ')
+
+        fout.write('\n')
+        for word in oneQ[3]:
+            word = word.lower()
+            if word in d_arr:
+                token = d_arr[word]
+	    elif word.split(".")[0] in d_arr:
+		token = d_arr[word.split(".")[0]]
+	    elif word.split("'s")[0] in d_arr:
+		token = d_arr[word.split("'s")[0]]
+	    elif word.split(":")[0] in d_arr:
+		token = d_arr[word.split(":")[0]]
+            else:
+                token = OOV
+
+            fout.write(str(token))
+            fout.write(' ')
+
+        fout.write('\n')
+        for word in oneQ[4]:
+            word = word.lower()
+            if word in d_arr:
+                token = d_arr[word]
+	    elif word.split(".")[0] in d_arr:
+		token = d_arr[word.split(".")[0]]
+	    elif word.split("'s")[0] in d_arr:
+		token = d_arr[word.split("'s")[0]]
+	    elif word.split(":")[0] in d_arr:
+		token = d_arr[word.split(":")[0]]
+            else:
+                token = OOV
+
+            fout.write(str(token))
+            fout.write(' ')
+
+        fout.write('\n')
+        for word in oneQ[5]:
+            word = word.lower()
+            if word in d_arr:
+                token = d_arr[word]
+	    elif word.split(".")[0] in d_arr:
+		token = d_arr[word.split(".")[0]]
+	    elif word.split("'s")[0] in d_arr:
+		token = d_arr[word.split("'s")[0]]
+	    elif word.split(":")[0] in d_arr:
+		token = d_arr[word.split(":")[0]]
+            else:
+                token = OOV
+
+            fout.write(str(token))
+            fout.write(' ')
+
+        fout.write('\n')
+	fout.close
+	'''
