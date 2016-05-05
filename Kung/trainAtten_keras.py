@@ -143,8 +143,8 @@ if __name__ == '__main__' :
 				})[0]
 			print "Now on",i+1,"   loss = ",train_loss/(i+1)
 			sys.stdout.write("\033[F")
-			'''for j in range(9):
-				model.nodes['para_'+str(j)].set_weights(model.nodes['para_10'].get_weights())'''
+			for j in range(9):
+				model.nodes['para_'+str(j+2)].set_weights(model.nodes['para_1'].get_weights())
 		print "training loss = ",train_loss/len(training_data)
 		train_acc = 0
 		for i in range(len(training_data)):
